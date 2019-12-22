@@ -276,6 +276,8 @@ void duckx::Document::open() {
     this->paragraph.set_parent(
         document.child("w:document").child("w:body")
     );
+    this->last_paragraph = this->paragraph;
+    while (this->last_paragraph.has_next()) this->last_paragraph.next();
 }
 
 void duckx::Document::save() const {
@@ -345,6 +347,20 @@ duckx::Paragraph &duckx::Document::paragraphs() {
         document.child("w:document").child("w:body")
     );
     return this->paragraph;
+}
+
+duckx::Paragraph &duckx::Document::add_paragraph(const std::string & text, Run::FormattingFlags f) {
+    pugi::xml_node node = document.child("w:document").child("w:body").append_child("w:p");
+    last_paragraph.set_current(node);
+    Paragraph * p = new Paragraph();
+    p->set_current(node);
+    p->add_run(text,f);
+    return *p;
+}
+
+duckx::Run &duckx::Document::add_run(const std::string & text, Run::FormattingFlags f) {
+    while(last_paragraph.has_next()) last_paragraph.next();
+    return last_paragraph.add_run(text,f);
 }
 
 duckx::Table& duckx::Document::tables() {

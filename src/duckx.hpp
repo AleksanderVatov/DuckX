@@ -162,7 +162,7 @@ namespace duckx {
     private:
         friend class IteratorHelper;
         std::string directory;
-        Paragraph paragraph;
+        Paragraph paragraph, last_paragraph;
 		Table table;
         pugi::xml_document document;
 
@@ -174,6 +174,8 @@ namespace duckx {
         void save() const;
 
         Paragraph &paragraphs();
+        Paragraph &add_paragraph(const std::string&, Run::FormattingFlags = Run::None);
+        Run &add_run(const std::string&, Run::FormattingFlags = Run::None);
 		Table& tables();
     };
 }
