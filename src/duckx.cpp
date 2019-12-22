@@ -74,7 +74,7 @@ void duckx::TableCell::set_current(pugi::xml_node node) {
 }
 
 bool duckx::TableCell::has_next() const {
-	return this->current != 0;
+	return (this->current.next_sibling() != 0);
 }
 
 duckx::TableCell& duckx::TableCell::next() {
@@ -123,7 +123,7 @@ duckx::TableCell& duckx::TableRow::cells() {
 }
 
 bool duckx::TableRow::has_next() const {
-	return this->current != 0;
+	return (this->current.next_sibling() != 0);
 }
 
 // Tables
@@ -144,7 +144,7 @@ void duckx::Table::set_parent(pugi::xml_node node) {
 }
 
 bool duckx::Table::has_next() const {
-	return this->current != 0;
+	return (this->current.next_sibling() != 0);
 }
 
 duckx::Table& duckx::Table::next() {
@@ -191,7 +191,7 @@ duckx::Paragraph &duckx::Paragraph::next() {
 }
 
 bool duckx::Paragraph::has_next() const {
-    return this->current != 0;
+    return (this->current.next_sibling() != 0);
 }
 
 duckx::Run &duckx::Paragraph::runs() {

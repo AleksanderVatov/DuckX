@@ -6,8 +6,10 @@ using namespace duckx;
 int main() {
     duckx::Document doc("my_test.docx");
     doc.open();
+    Paragraph last = doc.paragraphs();
+    while(last.has_next()) last = last.next();
 
-    duckx::Paragraph p = doc.paragraphs().insert_paragraph_after("You can insert text in ");
+    duckx::Paragraph p = last.insert_paragraph_after("You can insert text in ");
     p.add_run("italic, ", Run::Italic);
     p.add_run("bold, ", Run::Bold);
     p.add_run("underline, ", Run::Underline);
